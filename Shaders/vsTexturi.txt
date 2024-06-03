@@ -1,0 +1,18 @@
+#version 330 core 
+layout (location=0) in vec3 A;
+layout (location=2) in vec2 C; 
+layout (location=3) in vec3 D;
+out vec2 textureCoord;
+out vec3 Normal;
+out vec3 fragPos;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+void main(){ 
+   gl_Position=projection*view*model*vec4(A.x,A.y,A.z,1.0f);
+   textureCoord=C;
+   Normal=mat3(transpose(inverse(model)))*D;
+   fragPos=vec3(model*vec4(A,1.0f));
+} 
